@@ -38,5 +38,6 @@
     <None Include="TopRecords.h" />
     <None Include="WordCounter.h" />
     <None Include="def.h" />
+    <None Include="LetterTree.h" />
   </ItemGroup>
 </Project>
