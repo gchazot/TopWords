@@ -8,7 +8,9 @@
 using namespace std;
 
 bool is_separator(CharType character) {
-	return (character < 'a' || character > 'Z');
+	const bool upperCase =  (character >= 'A' && character <= 'Z');
+	const bool lowerCase =  (character >= 'a' && character <= 'z');
+	return !upperCase && !lowerCase;
 }
 
 
