@@ -21,10 +21,7 @@ public:
 	}
 
 	void count() {
-		while(good()) {
-			const size_t readSize = read();
-			parse_block(readSize);
-		}
+		parse_file();
 	}
 
 	bool good() const {
@@ -32,12 +29,21 @@ public:
 	}
 
 private:
+	void parse_file() {
+			while(good()) {
+			const size_t readSize = read();
+			parse_block(readSize);
+		}
+	}
+
 	void parse_block(size_t readSize) {
 		for(size_t i=0; i < readSize; ++i) {
 			const CharType character = _readBlock[i];
 			if( is_separator(character) ) {
 				increment_word();
+				//debug("Separator: " << character);
 			} else {
+				//debug("Character: " << character);
 				_currentWord.push_back(character);
 			}
 		}
@@ -45,6 +51,8 @@ private:
 
 	void increment_word() {
 		if( _currentWord.size() > 0 ) {
+			//debug("Word: " << _currentWord);
+
 			size_t newCount = 1;
 			auto wordCount = _counts.find(_currentWord);
 			if( wordCount != _counts.end() ) {
