@@ -15,8 +15,7 @@ bool is_separator(CharType character) {
 class WordCounter {
 public:
 	WordCounter(const char * filename):
-		_reader(filename, ios::in|ios::binary)
-	{
+		_reader(filename, ios::in|ios::binary) {
 	}
 
 	void count() {
@@ -32,28 +31,26 @@ public:
 
 private:
 	void parse_block(size_t readSize) {
-		for(size_t i=0; i < readSize; ++i){
-			if( is_separator(_readBlock[i]) ){
+		for(size_t i=0; i < readSize; ++i) {
+			const CharType character = _readBlock[i];
+			if( is_separator(character) ) {
 				increment_word();
-			}
-			else
-			{
-				_counts.find(_currentWord);
+			} else {
+				_currentWord.push_back(character);
 			}
 		}
 	}
 
-	void increment_word(){
-		if( _currentWordIndex > 0 ){
-			_currentWord[_currentWordIndex] = '\0';
-
+	void increment_word() {
+		if( _currentWord.size() > 0 ) {
 			size_t newCount = 1;
 			auto wordCount = _counts.find(_currentWord);
-			if( wordCount != _counts.end() ){
+			if( wordCount != _counts.end() ) {
 				newCount += wordCount->second;
 			}
 
 			_counts[_currentWord] = newCount;
+			_currentWord.clear();
 		}
 	}
 
@@ -67,7 +64,6 @@ private:
 	CharType _readBlock[ARCH_CHARS_PER_WORD];
 
 	Word _currentWord;
-	size_t _currentWordIndex;
 
 	WordsCount _counts;
 };
