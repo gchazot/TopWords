@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7A7E1AD5-ECF0-4E0A-BDCF-8F992525E32B}</ProjectGuid>
     <Compiler>
-      <Compiler ctype="GppCompiler" xmlns="" />
+      <Compiler ctype="GppCompiler" />
     </Compiler>
     <Language>CPP</Language>
     <Target>Bin</Target>
@@ -18,6 +18,9 @@
     <CompileTarget>Bin</CompileTarget>
     <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
     <SourceDirectory>.</SourceDirectory>
+    <WarningLevel>All</WarningLevel>
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <ExtraCompilerArguments>-std=c++17</ExtraCompilerArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -30,5 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TopRecords.h" />
+    <None Include="WordCounter.h" />
+    <None Include="def.h" />
   </ItemGroup>
 </Project>
