@@ -102,5 +102,6 @@ private:
 
 	Word _currentWord;
 
+	typedef std::map<Word, size_t> WordsCount;
 	WordsCount _counts;
 };
