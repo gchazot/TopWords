@@ -8,13 +8,26 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
-bool is_separator(CharType character) {
-	const bool upperCase =  (character >= 'A' && character <= 'Z');
-	const bool lowerCase =  (character >= 'a' && character <= 'z');
-	return !upperCase && !lowerCase;
+constexpr bool isUpperCase(CharType character) {
+	return (character >= 'A' && character <= 'Z');
 }
+
+constexpr bool isLowerCase(CharType character) {
+	return (character >= 'a' && character <= 'z');
+}
+
+constexpr bool is_separator(CharType character) {
+	return !isUpperCase(character) && !isLowerCase(character);
+}
+
+
+constexpr CharType translate(CharType character) {
+	if(isUpperCase(character)) {
+		return character - 'A' + 'a';
+	}
+	return character;
+}
+
 
 
 class WordCounter {
@@ -25,13 +38,7 @@ public:
 
 	void count() {
 		parse_file();
-
-		TopList<20> topWords;
-		for(const auto & wordCount: _counts) {
-			//debug(wordCount.first << "\t" << wordCount.second);
-			topWords.insert(wordCount.second, wordCount.first);
-		}
-		topWords.print();
+		printTopWords();
 	}
 
 	bool good() const {
@@ -54,7 +61,8 @@ private:
 				//debug("Separator: " << character);
 			} else {
 				//debug("Character: " << character);
-				_currentWord.push_back(character);
+				const CharType lowerCaseCharacter = translate(character);
+				_currentWord.push_back(lowerCaseCharacter);
 			}
 		}
 	}
@@ -72,6 +80,15 @@ private:
 			_counts[_currentWord] = newCount;
 			_currentWord.clear();
 		}
+	}
+
+	void printTopWords() {
+		TopList<20> topWords;
+		for(const auto & wordCount: _counts) {
+			//debug(wordCount.first << "\t" << wordCount.second);
+			topWords.insert(wordCount.second, wordCount.first);
+		}
+		topWords.print();
 	}
 
 
