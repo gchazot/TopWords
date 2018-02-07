@@ -1,4 +1,6 @@
-﻿#include "def.h"
+﻿#pragma once
+
+#include "def.h"
 #include <list>
 
 using namespace std;

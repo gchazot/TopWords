@@ -1,5 +1,4 @@
-﻿#ifndef _DEF_H_
-#define _DEF_H_
+﻿#pragma once
 
 #include <map>
 #include <string>
@@ -14,5 +13,3 @@ static const unsigned int ARCH_CHARS_PER_WORD = ARCH_WORD_WIDTH_BITS/CHAR_WIDTH_
 
 #define log(args) cout << args << endl
 #define debug(args) cerr << args << endl
-
-#endif // _DEF_H_
