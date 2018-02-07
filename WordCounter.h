@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "def.h"
+#include "TopRecords.h"
 
 #include <iostream>
 #include <fstream>
@@ -24,6 +25,13 @@ public:
 
 	void count() {
 		parse_file();
+
+		TopList<20> topWords;
+		for(const auto & wordCount: _counts) {
+			//debug(wordCount.first << "\t" << wordCount.second);
+			topWords.insert(wordCount.second, wordCount.first);
+		}
+		topWords.print();
 	}
 
 	bool good() const {

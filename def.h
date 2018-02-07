@@ -1,7 +1,10 @@
 ﻿#pragma once
 
+#include <iostream>
 #include <map>
 #include <string>
+
+using namespace std;
 
 typedef std::string Word;
 typedef Word::value_type CharType;

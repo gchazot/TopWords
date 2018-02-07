@@ -3,8 +3,6 @@
 #include "def.h"
 #include <list>
 
-using namespace std;
-
 struct TopItem {
 	Word word;
 	size_t count;
@@ -17,13 +15,21 @@ class TopList {
 public:
 	void insert(size_t count, Word element) {
 		list<TopItem>::const_iterator insertIt = _top.begin();
-		while(insertIt->count > count) {
+		while(insertIt->count < count) {
 			++insertIt;
 		}
-		_top.emplace(insertIt, element, count);
+		if(_top.size() < TOP_SIZE || insertIt != _top.begin()) {
+			_top.emplace(insertIt, element, count);
 
-		if(_top.size() > TOP_SIZE) {
-			_top.pop_front();
+			if(_top.size() > TOP_SIZE) {
+				_top.pop_front();
+			}
+		}
+	}
+
+	void print() {
+		for(const auto & item: _top){
+			debug(item.count << "\t" << item.word);
 		}
 	}
 
