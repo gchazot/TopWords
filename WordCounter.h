@@ -1,12 +1,10 @@
 ﻿#pragma once
 
 #include "def.h"
+#include "LetterTree.h"
 #include "TopRecords.h"
 
-#include <iostream>
 #include <fstream>
-#include <map>
-#include <string>
 
 constexpr bool isUpperCase(CharType character) {
 	return (character >= 'A' && character <= 'Z');
@@ -29,11 +27,12 @@ constexpr CharType translate(CharType character) {
 }
 
 
-
 class WordCounter {
 public:
 	WordCounter(const char * filename):
-		_reader(filename, ios::in|ios::binary) {
+		_reader(filename, ios::in|ios::binary),
+		_wordsCounts(),
+		_currentWord(&_wordsCounts) {
 	}
 
 	void count() {
@@ -47,7 +46,7 @@ public:
 
 private:
 	void parse_file() {
-			while(good()) {
+		while(good()) {
 			const size_t readSize = read();
 			parse_block(readSize);
 		}
@@ -57,36 +56,19 @@ private:
 		for(size_t i=0; i < readSize; ++i) {
 			const CharType character = _readBlock[i];
 			if( is_separator(character) ) {
-				increment_word();
-				//debug("Separator: " << character);
+				_currentWord.increment();
 			} else {
-				//debug("Character: " << character);
 				const CharType lowerCaseCharacter = translate(character);
-				_currentWord.push_back(lowerCaseCharacter);
+				_currentWord.append(lowerCaseCharacter);
 			}
-		}
-	}
-
-	void increment_word() {
-		if( _currentWord.size() > 0 ) {
-			//debug("Word: " << _currentWord);
-
-			size_t newCount = 1;
-			auto wordCount = _counts.find(_currentWord);
-			if( wordCount != _counts.end() ) {
-				newCount += wordCount->second;
-			}
-
-			_counts[_currentWord] = newCount;
-			_currentWord.clear();
 		}
 	}
 
 	void printTopWords() {
 		TopList<20> topWords;
-		for(const auto & wordCount: _counts) {
-			//debug(wordCount.first << "\t" << wordCount.second);
-			topWords.insert(wordCount.second, wordCount.first);
+		WordCursor cursor(_wordsCounts);
+		while(cursor.next()) {
+			topWords.insert(cursor.count(), cursor.word());
 		}
 		topWords.print();
 	}
@@ -100,8 +82,6 @@ private:
 	ifstream _reader;
 	CharType _readBlock[ARCH_CHARS_PER_WORD];
 
-	Word _currentWord;
-
-	typedef std::map<Word, size_t> WordsCount;
-	WordsCount _counts;
+	LetterTree _wordsCounts;
+	WordInserter _currentWord;
 };

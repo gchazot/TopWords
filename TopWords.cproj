@@ -13,7 +13,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug</OutputPath>
-    <Externalconsole>true</Externalconsole>
     <OutputName>TopWords</OutputName>
     <CompileTarget>Bin</CompileTarget>
     <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
@@ -21,15 +20,17 @@
     <WarningLevel>All</WarningLevel>
     <WarningsAsErrors>true</WarningsAsErrors>
     <ExtraCompilerArguments>-std=c++17</ExtraCompilerArguments>
+    <Commandlineparameters>/home/germs/mobydick.txt</Commandlineparameters>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
-    <Externalconsole>true</Externalconsole>
     <OutputName>TopWords</OutputName>
     <CompileTarget>Bin</CompileTarget>
     <OptimizationLevel>3</OptimizationLevel>
     <DefineSymbols>MONODEVELOP</DefineSymbols>
     <SourceDirectory>.</SourceDirectory>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="main.cpp" />
