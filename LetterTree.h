@@ -2,6 +2,8 @@
 
 #include "def.h"
 
+#include <list>
+
 
 class LetterTree {
 public:
@@ -40,6 +42,7 @@ private:
 class WordInserter {
 public:
 	explicit WordInserter(LetterTree * letterTree):
+		_rootLetter(letterTree),
 		_currentLetter(letterTree) {
 	}
 
@@ -47,12 +50,20 @@ public:
 		_currentLetter = _currentLetter->nextCharacter(character);
 	}
 
-	void incrementWord() {
-		_currentLetter->increment();
+	void increment() {
+		if( _currentLetter != _rootLetter) {
+			_currentLetter->increment();
+			reset();
+		}
 	}
 
 private:
+	LetterTree * const _rootLetter;
 	LetterTree * _currentLetter;
+
+	void reset() {
+		_currentLetter = _rootLetter;
+	}
 };
 
 class WordCursor {
