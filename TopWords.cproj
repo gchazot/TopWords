@@ -31,6 +31,9 @@
     <DefineSymbols>MONODEVELOP</DefineSymbols>
     <SourceDirectory>.</SourceDirectory>
     <ConsolePause>false</ConsolePause>
+    <WarningLevel>All</WarningLevel>
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <ExtraCompilerArguments>-std=c++17</ExtraCompilerArguments>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="main.cpp" />
@@ -40,5 +43,6 @@
     <None Include="WordCounter.h" />
     <None Include="def.h" />
     <None Include="LetterTree.h" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
