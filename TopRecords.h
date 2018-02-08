@@ -28,8 +28,8 @@ public:
 	}
 
 	void print() {
-		for(const auto & item: _top){
-			debug(item.count << "\t" << item.word);
+		for(auto item = _top.rbegin(); item != _top.rend(); ++item){
+			debug(item->count << "\t" << item->word);
 		}
 	}
 
