@@ -15,5 +15,6 @@ int main (int argc, char *argv[])
 	}
 
 	counter.count();
+
 	return 0;
 }

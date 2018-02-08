@@ -13,10 +13,19 @@ public:
 	}
 
 	LetterTree * nextCharacter(CharType character){
-		return nullptr;
+		auto letterIt = _next_letters.begin();
+		while(letterIt != _next_letters.end()) {
+			if(letterIt->_character == character) {
+				return &*letterIt;
+			}
+			++letterIt;
+		}
+
+		return &_next_letters.emplace_back(character);
 	}
 
 	void increment() {
+		++_count;
 	}
 
 private:
